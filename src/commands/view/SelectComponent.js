@@ -555,7 +555,7 @@ module.exports = {
       ) {
         pos.top = pos.top;
       } else {
-        pos.top = pos.top + 22;
+        pos.top = pos.top + toolbarEl.clientHeight;
       }
 
       // Check if not outside of the canvas

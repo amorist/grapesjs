@@ -29725,7 +29725,7 @@ module.exports = {
       if (pos.top <= pos.canvasTop && !(pos.elementHeight + pos.targetHeight >= frameOffset.height)) {
         pos.top = pos.top;
       } else {
-        pos.top = pos.top + 22;
+        pos.top = pos.top + toolbarEl.clientHeight;
       }
 
       // Check if not outside of the canvas
@@ -36385,7 +36385,9 @@ module.exports = Backbone.View.extend({
     var pfx = editor.getConfig('stylePrefix');
     $el.addClass(pfx + 'toolbar-item');
     id && $el.addClass(pfx + 'toolbar-item__' + id);
-    $el.html('<span style=\'margin-left: 2px;\'>' + content + '</span>');
+    if (content) {
+      $el.html('<span style=\'margin-left: 2px;\'>' + content + '</span>');
+    }
     label && $el.append(label);
     return this;
   }
@@ -39257,7 +39259,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.68',
+    version: '0.14.69',
 
     /**
      * Initialize the editor with passed options
