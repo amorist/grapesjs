@@ -193,18 +193,18 @@ module.exports = Backbone.View.extend({
       var frameCss = `
         ${em.config.baseCss || ''}
 
-        .${ppfx}dashed *[data-highlightable] {
-          outline: 1px dashed rgba(170,170,170,0.7);
-          outline-offset: -2px;
-        }
+        // .${ppfx}dashed *[data-highlightable] {
+        //   outline: 1px dashed rgba(170,170,170,0.7);
+        //   outline-offset: -2px;
+        // }
 
         .${ppfx}comp-selected {
-          outline: 3px solid #3b97e3 !important;
-          outline-offset: -3px;
+          outline: 1px dashed #3b97e3 !important;
+          outline-offset: -1px;
         }
 
         .${ppfx}comp-selected-parent {
-          outline: 2px solid ${colorWarn} !important
+          outline: 2px dashed ${colorWarn} !important
         }
 
         .${ppfx}no-select {
