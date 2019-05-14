@@ -34971,7 +34971,8 @@ var Backbone = __webpack_require__(/*! backbone */ "./node_modules/backbone/back
 module.exports = Backbone.Model.extend({
   defaults: {
     command: '',
-    attributes: {}
+    attributes: {},
+    content: ''
   }
 });
 
@@ -36380,9 +36381,12 @@ module.exports = Backbone.View.extend({
 
     var id = model.get('id');
     var label = model.get('label');
+    var content = model.get('content');
     var pfx = editor.getConfig('stylePrefix');
     $el.addClass(pfx + 'toolbar-item');
+    $el.addClass('' + pfx + content);
     id && $el.addClass(pfx + 'toolbar-item__' + id);
+    $el.text("你好");
     label && $el.append(label);
     return this;
   }
