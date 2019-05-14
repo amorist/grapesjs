@@ -6,7 +6,7 @@ const fs = require('fs');
 let plugins = [];
 
 module.exports = env => {
-  const name = pkg.name;
+  const name = "grapesjs";
   const isProd = env === 'prod';
   const output = {
     path: path.join(__dirname),
