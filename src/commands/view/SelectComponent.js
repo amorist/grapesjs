@@ -553,7 +553,9 @@ module.exports = {
         pos.top <= pos.canvasTop &&
         !(pos.elementHeight + pos.targetHeight >= frameOffset.height)
       ) {
-        pos.top = pos.top - 22;
+        pos.top = pos.top;
+      } else {
+        pos.top = pos.top + 22;
       }
 
       // Check if not outside of the canvas
@@ -562,7 +564,7 @@ module.exports = {
       }
 
       var leftPos = pos.left + pos.elementWidth - pos.targetWidth;
-      toolbarStyle.top = pos.top + 22 + unit;
+      toolbarStyle.top = pos.top + unit;
       toolbarStyle.left = (leftPos < 0 ? 0 : leftPos) + unit;
       toolbarStyle.opacity = '';
     }
