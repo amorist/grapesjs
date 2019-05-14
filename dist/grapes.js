@@ -36385,7 +36385,7 @@ module.exports = Backbone.View.extend({
     var pfx = editor.getConfig('stylePrefix');
     $el.addClass(pfx + 'toolbar-item');
     id && $el.addClass(pfx + 'toolbar-item__' + id);
-    $el.html('<span style="margin-left: 2px;>' + content + '</span>');
+    $el.html('<span style=\'margin-left: 2px;\'>' + content + '</span>');
     label && $el.append(label);
     return this;
   }
@@ -39257,7 +39257,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.67',
+    version: '0.14.68',
 
     /**
      * Initialize the editor with passed options

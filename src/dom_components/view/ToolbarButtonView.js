@@ -45,7 +45,9 @@ module.exports = Backbone.View.extend({
     const pfx = editor.getConfig('stylePrefix');
     $el.addClass(`${pfx}toolbar-item`);
     id && $el.addClass(`${pfx}toolbar-item__${id}`);
-    $el.html(`<span style="margin-left: 2px;>${content}</span>`);
+    if (content) {
+      $el.html(`<span style='margin-left: 2px;'>${content}</span>`);
+    }
     label && $el.append(label);
     return this;
   }
