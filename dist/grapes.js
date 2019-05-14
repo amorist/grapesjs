@@ -36384,9 +36384,8 @@ module.exports = Backbone.View.extend({
     var content = model.get('content');
     var pfx = editor.getConfig('stylePrefix');
     $el.addClass(pfx + 'toolbar-item');
-    $el.addClass('' + pfx + content);
     id && $el.addClass(pfx + 'toolbar-item__' + id);
-    $el.text("你好");
+    $el.html('<span style="margin-left: 2px;>' + content + '</span>');
     label && $el.append(label);
     return this;
   }
