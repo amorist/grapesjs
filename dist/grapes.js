@@ -29723,7 +29723,7 @@ module.exports = {
       // Scroll with the window if the top edge is reached and the
       // element is bigger than the canvas
       if (pos.top <= pos.canvasTop && !(pos.elementHeight + pos.targetHeight >= frameOffset.height)) {
-        pos.top = pos.elementTop + pos.elementHeight;
+        pos.top = pos.top - 22;
       }
 
       // Check if not outside of the canvas
@@ -29732,7 +29732,7 @@ module.exports = {
       }
 
       var leftPos = pos.left + pos.elementWidth - pos.targetWidth;
-      toolbarStyle.top = pos.top + unit;
+      toolbarStyle.top = pos.top + 22 + unit;
       toolbarStyle.left = (leftPos < 0 ? 0 : leftPos) + unit;
       toolbarStyle.opacity = '';
     }
@@ -39252,7 +39252,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.63',
+    version: '0.14.64',
 
     /**
      * Initialize the editor with passed options
