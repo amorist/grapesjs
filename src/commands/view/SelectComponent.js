@@ -93,7 +93,7 @@ module.exports = {
     const trg = component && component.getEl();
     if (trg) {
       const pos = this.getElementPos(trg);
-      this.updateBadge(trg, pos);
+      // this.updateBadge(trg, pos);
       this.updateHighlighter(trg, pos);
       this.showElementOffset(trg, pos);
     }
@@ -604,7 +604,7 @@ module.exports = {
 
     if (el) {
       const elPos = this.getElementPos(el);
-      this.updateBadge(el, elPos);
+      // this.updateBadge(el, elPos);
       const model = this.em.getSelected();
       const viewEl = model && model.getEl();
       viewEl && this.updateToolbarPos(viewEl);

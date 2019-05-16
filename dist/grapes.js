@@ -29249,7 +29249,7 @@ module.exports = {
     var trg = component && component.getEl();
     if (trg) {
       var pos = this.getElementPos(trg);
-      this.updateBadge(trg, pos);
+      // this.updateBadge(trg, pos);
       this.updateHighlighter(trg, pos);
       this.showElementOffset(trg, pos);
     }
@@ -29778,7 +29778,7 @@ module.exports = {
 
     if (el) {
       var elPos = this.getElementPos(el);
-      this.updateBadge(el, elPos);
+      // this.updateBadge(el, elPos);
       var model = this.em.getSelected();
       var viewEl = model && model.getEl();
       viewEl && this.updateToolbarPos(viewEl);
@@ -39259,7 +39259,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.70',
+    version: '0.14.71',
 
     /**
      * Initialize the editor with passed options
