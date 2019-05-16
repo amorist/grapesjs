@@ -29724,7 +29724,7 @@ module.exports = {
       // element is bigger than the canvas
       if (pos.top <= pos.canvasTop && !(pos.elementHeight + pos.targetHeight >= frameOffset.height)) {
         pos.top = pos.top;
-      } else {
+      } else if (el.clientHeight > 50) {
         pos.top = pos.top + toolbarEl.clientHeight;
       }
 
@@ -39259,7 +39259,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.69',
+    version: '0.14.70',
 
     /**
      * Initialize the editor with passed options

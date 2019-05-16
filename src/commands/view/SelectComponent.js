@@ -554,7 +554,7 @@ module.exports = {
         !(pos.elementHeight + pos.targetHeight >= frameOffset.height)
       ) {
         pos.top = pos.top;
-      } else {
+      } else if (el.clientHeight > 50) {
         pos.top = pos.top + toolbarEl.clientHeight;
       }
 
