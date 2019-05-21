@@ -227,7 +227,7 @@ module.exports = Backbone.View.extend({
           border: none;
           height: 100px;
           width: 100px;
-          display: block;
+          display: inline-block;
           outline: 3px solid #ffca6f;
           cursor: pointer;
           outline-offset: -2px

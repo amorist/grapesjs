@@ -5,7 +5,7 @@ module.exports = ComponentView.extend({
   tagName: 'img',
 
   events: {
-    dblclick: 'onActive',
+    // dblclick: 'onActive',
     click: 'initResize',
     error: 'onError',
     dragstart: 'noDrag',

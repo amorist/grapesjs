@@ -553,9 +553,7 @@ module.exports = {
         pos.top <= pos.canvasTop &&
         !(pos.elementHeight + pos.targetHeight >= frameOffset.height)
       ) {
-        pos.top = pos.top;
-      } else if (el.clientHeight > 50) {
-        pos.top = pos.top + toolbarEl.clientHeight;
+        pos.top = pos.elementTop + pos.elementHeight;
       }
 
       // Check if not outside of the canvas

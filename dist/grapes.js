@@ -25511,7 +25511,7 @@ module.exports = _backbone2.default.View.extend({
       // `body {height: 100%;}`.
       // For the moment I give the priority to Firefox as it might be
       // CKEditor's issue
-      var frameCss = '\n        ' + (em.config.baseCss || '') + '\n\n        // .' + ppfx + 'dashed *[data-highlightable] {\n        //   outline: 1px dashed rgba(170,170,170,0.7);\n        //   outline-offset: -2px;\n        // }\n\n        .' + ppfx + 'comp-selected {\n          outline: 1px dashed #3b97e3 !important;\n          outline-offset: -1px;\n        }\n\n        .' + ppfx + 'comp-selected-parent {\n          outline: 2px dashed ' + colorWarn + ' !important\n        }\n\n        .' + ppfx + 'no-select {\n          user-select: none;\n          -webkit-user-select:none;\n          -moz-user-select: none;\n        }\n\n        .' + ppfx + 'freezed {\n          opacity: 0.5;\n          pointer-events: none;\n        }\n\n        .' + ppfx + 'no-pointer {\n          pointer-events: none;\n        }\n\n        .' + ppfx + 'plh-image {\n          background: #f5f5f5;\n          border: none;\n          height: 100px;\n          width: 100px;\n          display: block;\n          outline: 3px solid #ffca6f;\n          cursor: pointer;\n          outline-offset: -2px\n        }\n\n        .' + ppfx + 'grabbing {\n          cursor: grabbing;\n          cursor: -webkit-grabbing;\n        }\n\n        ' + (conf.canvasCss || '') + '\n        ' + (conf.protectedCss || '') + '\n      ';
+      var frameCss = '\n        ' + (em.config.baseCss || '') + '\n\n        // .' + ppfx + 'dashed *[data-highlightable] {\n        //   outline: 1px dashed rgba(170,170,170,0.7);\n        //   outline-offset: -2px;\n        // }\n\n        .' + ppfx + 'comp-selected {\n          outline: 1px dashed #3b97e3 !important;\n          outline-offset: -1px;\n        }\n\n        .' + ppfx + 'comp-selected-parent {\n          outline: 2px dashed ' + colorWarn + ' !important\n        }\n\n        .' + ppfx + 'no-select {\n          user-select: none;\n          -webkit-user-select:none;\n          -moz-user-select: none;\n        }\n\n        .' + ppfx + 'freezed {\n          opacity: 0.5;\n          pointer-events: none;\n        }\n\n        .' + ppfx + 'no-pointer {\n          pointer-events: none;\n        }\n\n        .' + ppfx + 'plh-image {\n          background: #f5f5f5;\n          border: none;\n          height: 100px;\n          width: 100px;\n          display: inline-block;\n          outline: 3px solid #ffca6f;\n          cursor: pointer;\n          outline-offset: -2px\n        }\n\n        .' + ppfx + 'grabbing {\n          cursor: grabbing;\n          cursor: -webkit-grabbing;\n        }\n\n        ' + (conf.canvasCss || '') + '\n        ' + (conf.protectedCss || '') + '\n      ';
 
       if (externalStyles) {
         head.append(externalStyles);
@@ -29723,9 +29723,7 @@ module.exports = {
       // Scroll with the window if the top edge is reached and the
       // element is bigger than the canvas
       if (pos.top <= pos.canvasTop && !(pos.elementHeight + pos.targetHeight >= frameOffset.height)) {
-        pos.top = pos.top;
-      } else if (el.clientHeight > 50) {
-        pos.top = pos.top + toolbarEl.clientHeight;
+        pos.top = pos.elementTop + pos.elementHeight;
       }
 
       // Check if not outside of the canvas
@@ -35016,7 +35014,7 @@ module.exports = ComponentView.extend({
   tagName: 'img',
 
   events: {
-    dblclick: 'onActive',
+    // dblclick: 'onActive',
     click: 'initResize',
     error: 'onError',
     dragstart: 'noDrag',
@@ -36381,13 +36379,9 @@ module.exports = Backbone.View.extend({
 
     var id = model.get('id');
     var label = model.get('label');
-    var content = model.get('content');
     var pfx = editor.getConfig('stylePrefix');
     $el.addClass(pfx + 'toolbar-item');
     id && $el.addClass(pfx + 'toolbar-item__' + id);
-    if (content) {
-      $el.html('<span style=\'margin-left: 2px;\'>' + content + '</span>');
-    }
     label && $el.append(label);
     return this;
   }
@@ -39259,7 +39253,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.71',
+    version: '0.14.77',
 
     /**
      * Initialize the editor with passed options

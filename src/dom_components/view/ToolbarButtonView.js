@@ -41,13 +41,9 @@ module.exports = Backbone.View.extend({
     const { editor, $el, model } = this;
     const id = model.get('id');
     const label = model.get('label');
-    const content = model.get('content');
     const pfx = editor.getConfig('stylePrefix');
     $el.addClass(`${pfx}toolbar-item`);
     id && $el.addClass(`${pfx}toolbar-item__${id}`);
-    if (content) {
-      $el.html(`<span style='margin-left: 2px;'>${content}</span>`);
-    }
     label && $el.append(label);
     return this;
   }
