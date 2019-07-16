@@ -37,6 +37,32 @@ module.exports = () => {
   const commands = {};
   const defaultCommands = {};
   const active = {};
+  const commandsDef = [
+    ['preview', 'Preview', 'preview'],
+    ['resize', 'Resize', 'resize'],
+    ['fullscreen', 'Fullscreen', 'fullscreen'],
+    ['copy', 'CopyComponent'],
+    ['paste', 'PasteComponent'],
+    ['canvas-move', 'CanvasMove'],
+    ['canvas-clear', 'CanvasClear'],
+    ['open-code', 'ExportTemplate', 'export-template'],
+    ['open-layers', 'OpenLayers', 'open-layers'],
+    ['open-styles', 'OpenStyleManager', 'open-sm'],
+    ['open-traits', 'OpenTraitManager', 'open-tm'],
+    ['open-blocks', 'OpenBlocks', 'open-blocks'],
+    ['open-assets', 'OpenAssets', 'open-assets'],
+    ['component-select', 'SelectComponent', 'select-comp'],
+    ['component-outline', 'SwitchVisibility', 'sw-visibility'],
+    ['component-offset', 'ShowOffset', 'show-offset'],
+    ['component-move', 'MoveComponent', 'move-comp'],
+    ['component-next', 'ComponentNext'],
+    ['component-prev', 'ComponentPrev'],
+    ['component-enter', 'ComponentEnter'],
+    ['component-exit', 'ComponentExit', 'select-parent'],
+    ['component-delete', 'ComponentDelete'],
+    ['component-style-clear', 'ComponentStyleClear'],
+    ['component-drag', 'ComponentDrag']
+  ];
 
   // Need it here as it would be used below
   const add = function(id, obj) {
@@ -98,15 +124,10 @@ module.exports = () => {
           const event = opts && opts.event;
           const sel = ed.getSelected();
           const selAll = [...ed.getSelectedAll()];
-          const toolbarStyle = ed.Canvas.getToolbarEl().style;
           const nativeDrag = event && event.type == 'dragstart';
           const defComOptions = { preserveSelected: 1 };
           const modes = ['absolute', 'translate'];
-
-          const hideTlb = () => {
-            toolbarStyle.display = 'none';
-            em.stopDefault(defComOptions);
-          };
+          const hideTlb = () => em.stopDefault(defComOptions);
 
           if (!sel || !sel.get('draggable')) {
             console.warn('The element is not draggable');
@@ -152,37 +173,20 @@ module.exports = () => {
       // Core commands
       defaultCommands['core:undo'] = e => e.UndoManager.undo();
       defaultCommands['core:redo'] = e => e.UndoManager.redo();
-      [
-        ['preview', 'Preview', 'preview'],
-        ['resize', 'Resize', 'resize'],
-        ['fullscreen', 'Fullscreen', 'fullscreen'],
-        ['copy', 'CopyComponent'],
-        ['paste', 'PasteComponent'],
-        ['canvas-move', 'CanvasMove'],
-        ['canvas-clear', 'CanvasClear'],
-        ['open-code', 'ExportTemplate', 'export-template'],
-        ['open-layers', 'OpenLayers', 'open-layers'],
-        ['open-styles', 'OpenStyleManager', 'open-sm'],
-        ['open-traits', 'OpenTraitManager', 'open-tm'],
-        ['open-blocks', 'OpenBlocks', 'open-blocks'],
-        ['open-assets', 'OpenAssets', 'open-assets'],
-        ['component-select', 'SelectComponent', 'select-comp'],
-        ['component-outline', 'SwitchVisibility', 'sw-visibility'],
-        ['component-offset', 'ShowOffset', 'show-offset'],
-        ['component-move', 'MoveComponent', 'move-comp'],
-        ['component-next', 'ComponentNext'],
-        ['component-prev', 'ComponentPrev'],
-        ['component-enter', 'ComponentEnter'],
-        ['component-exit', 'ComponentExit', 'select-parent'],
-        ['component-delete', 'ComponentDelete'],
-        ['component-style-clear', 'ComponentStyleClear'],
-        ['component-drag', 'ComponentDrag']
-      ].forEach(item => {
+      commandsDef.forEach(item => {
         const oldCmd = item[2];
         const cmd = require(`./view/${item[1]}`);
         const cmdName = `core:${item[0]}`;
         defaultCommands[cmdName] = cmd;
-        if (oldCmd) defaultCommands[oldCmd] = cmd;
+        if (oldCmd) {
+          defaultCommands[oldCmd] = cmd;
+          // Propogate old commands (can be removed once we stop to call old commands)
+          ['run', 'stop'].forEach(name => {
+            em.on(`${name}:${oldCmd}`, (...args) =>
+              em.trigger(`${name}:${cmdName}`, ...args)
+            );
+          });
+        }
       });
 
       if (c.em) c.model = c.em.get('Canvas');
@@ -247,11 +251,18 @@ module.exports = () => {
      * */
     extend(id, cmd = {}) {
       const command = this.get(id);
-      command &&
-        this.add(id, {
+      if (command) {
+        const cmdObj = {
           ...command.constructor.prototype,
           ...cmd
-        });
+        };
+        this.add(id, cmdObj);
+        // Extend also old name commands if exist
+        const oldCmd = commandsDef.filter(
+          cmd => `core:${cmd[0]}` === id && cmd[2]
+        )[0];
+        oldCmd && this.add(oldCmd[2], cmdObj);
+      }
       return this;
     },
 
